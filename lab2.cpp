@@ -5,13 +5,12 @@ class wektor
 {
 
 private:
-    int N;
-    int Length   = N;
-    int Capacity = Length;
-
-public:
+    int     N;
+    int     Length   = N;
+    int     Capacity = Length;
     double* wp;
 
+public:
     wektor() { wp = new double[0]; }
 
     wektor(int n, int C) : N{n}, Length{n}, Capacity{C}
@@ -74,7 +73,29 @@ public:
             wp       = wpn;
         };
     };
+
+    double& operator[](int index);
 };
+
+double& wektor ::operator[](int index)
+{
+    if (index > Length) {
+        N           = index;
+        double* wpn = (double*)realloc(wp, sizeof(double) * N);
+        for (int i = 0; i < Length; ++i) {
+            *(wpn + i) = *(wp + i);
+        }
+
+        for (int i = Length; i < index; ++i) {
+            *(wp + i) = 0;
+        }
+        Length   = N;
+        Capacity = Length;
+        wp       = wpn;
+    };
+
+    return wp[index];
+}
 
 int main()
 {
@@ -91,6 +112,10 @@ int main()
     a.printW();
 
     a.ChangeLength(8);
+
+    a.printW();
+
+    a[10] = 99;
 
     a.printW();
 }
