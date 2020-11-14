@@ -23,6 +23,15 @@ public:
         };
     }
 
+    // konstruktor kopiujący
+    wektor(const wektor& wek) : N{wek.N}, Length{wek.Length}, Capacity{wek.Capacity}
+    {
+        wp = new double[N];
+        for (int i = 0; i < N; ++i) {
+            *(wp + i) = wek.wp[i];
+        };
+    }
+
     ~wektor()
     {
         cout << "deleted" << endl;
@@ -58,14 +67,13 @@ public:
             Length = newLength;
         }
         else {
-            cout << "new length bigger than old - memory reallocation!" << endl;
             N           = newLength;
             double* wpn = (double*)realloc(wp, sizeof(double) * N);
-            for (int i = 0; i < Length; ++i) {
+            for (int i = 1; i < Length; ++i) {
                 *(wpn + i) = *(wp + i);
             }
 
-            for (int i = Length; i < newLength; ++i) {
+            for (int i = Length; i <= newLength; ++i) {
                 *(wp + i) = 0;
             }
             Length   = N;
@@ -75,26 +83,24 @@ public:
     };
 
     double& operator[](int index);
+
+    double& operator=(const wektor& other);
 };
 
 double& wektor ::operator[](int index)
 {
     if (index > Length) {
-        N           = index;
-        double* wpn = (double*)realloc(wp, sizeof(double) * N);
-        for (int i = 0; i < Length; ++i) {
-            *(wpn + i) = *(wp + i);
-        }
-
-        for (int i = Length; i < index; ++i) {
-            *(wp + i) = 0;
-        }
-        Length   = N;
-        Capacity = Length;
-        wp       = wpn;
-    };
-
+        ChangeLength(index);
+    }
     return wp[index];
+}
+
+double& wektor::operator=(const wektor& other)
+{
+    for (int i = 0; i < Length; ++i) {
+        wp[i] = other.wp[i];
+        return *this;
+    }
 }
 
 int main()
@@ -113,11 +119,21 @@ int main()
 
     a.ChangeLength(8);
 
-    a.printW();
-
-    a[20];
-
-    a[19] = 900;
+    a.setW();
 
     a.printW();
+
+    a[20] = 900;
+
+    a.printW();
+
+    wektor b{5, 5};
+
+    b.setW();
+
+    b.printW();
+
+    wektor copy{b};
+
+    copy.printW();
 }
