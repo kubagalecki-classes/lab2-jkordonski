@@ -11,7 +11,7 @@ public:
     ResourceManager()
     {
         p = new Resource;
-    }
+    
 
     double get(){return p.get();}
 
