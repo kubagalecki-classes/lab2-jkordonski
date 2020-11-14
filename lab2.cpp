@@ -84,7 +84,17 @@ public:
 
     double& operator[](int index);
 
-    double& operator=(const wektor& other);
+    double& operator=(const wektor& other)
+    {
+        delete[] this->wp;
+        this->wp       = new double[other.Capacity];
+        this->N        = other.N;
+        this->Length   = other.Length;
+        this->Capacity = other.Capacity;
+        for (int i = 0; i < Length; ++i) {
+            this->wp[i] = other.wp[i];
+        }
+    }
 };
 
 double& wektor ::operator[](int index)
@@ -93,14 +103,6 @@ double& wektor ::operator[](int index)
         ChangeLength(index);
     }
     return wp[index];
-}
-
-double& wektor::operator=(const wektor& other)
-{
-    for (int i = 0; i < Length; ++i) {
-        wp[i] = other.wp[i];
-        return *this;
-    }
 }
 
 int main()
@@ -136,4 +138,9 @@ int main()
     wektor copy{b};
 
     copy.printW();
+
+    copy[2] = 100;
+    copy.printW();
+    b = copy;
+    b.printW();
 }

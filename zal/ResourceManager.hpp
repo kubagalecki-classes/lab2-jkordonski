@@ -4,5 +4,13 @@
 
 class ResourceManager
 {
-    // Twoja implementacja tutaj
+Resource *p;
+ResourceManager(Resource *p){p=ptr;}
+
+
+
+~ResourceManager(){delete (p)}
+
+double get(){return p.get;};
+
 };
