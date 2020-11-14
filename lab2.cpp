@@ -115,7 +115,9 @@ int main()
 
     a.printW();
 
-    a[10] = 99;
+    a[20];
+
+    a[19] = 900;
 
     a.printW();
 }
