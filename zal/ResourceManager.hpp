@@ -12,7 +12,7 @@ public:
     {
         p = ptr;
     }
-
+    double get(){return p.get;}
     ~ResourceManager()
     {
         delete (p);
