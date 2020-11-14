@@ -4,18 +4,17 @@
 
 class ResourceManager
 {
-    Resource* p;
+  
+  Resource* p;
 
 public:
     ResourceManager(Resource* ptr = NULL)
     {
-        cout << "Resource acquired!" << endl;
         p = ptr;
     }
 
     ~ResourceManager()
     {
-        cout << "Resource deleted!" << endl;
         delete (p);
     }
 };
