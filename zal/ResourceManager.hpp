@@ -21,7 +21,7 @@ public:
     {if (&other !=this)
       {delete p;
         p= new Resource{*other.p};}
-        return *this}
+        return *this;}
 
     ResourceManager(ResourceManager&& other)
     {
